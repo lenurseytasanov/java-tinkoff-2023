@@ -12,10 +12,10 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        PrintHelloWorld();
+        printHelloWorld();
     }
 
-    private static void PrintHelloWorld() {
+    private static void printHelloWorld() {
         LOGGER.info("Привет, мир!");
     }
 }

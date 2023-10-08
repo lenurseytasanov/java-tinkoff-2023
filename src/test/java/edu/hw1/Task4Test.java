@@ -18,4 +18,9 @@ public class Task4Test {
     void emptyStringTest() {
         assertEquals("", Task4.fixString(""));
     }
+
+    @Test
+    void nullStringTest() {
+        assertThrows(IllegalArgumentException.class, () -> Task4.fixString(null));
+    }
 }

@@ -4,7 +4,10 @@ public final class Task7 {
     private Task7() {
     }
 
-    public static int rotateLeft(int n, int shift) {
+    public static int rotateLeft(int n, int shift) throws IllegalArgumentException {
+        if (n < 0 || shift < 0) {
+            throw new IllegalArgumentException();
+        }
         var mask1 = (int) Math.pow(2, Integer.toString(n, 2).length() - 1);
         var mask2 = mask1 * 2 - 1;
         var result = n;

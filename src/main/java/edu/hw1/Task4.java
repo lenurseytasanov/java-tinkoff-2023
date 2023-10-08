@@ -4,7 +4,10 @@ public final class Task4 {
     private Task4() {
     }
 
-    public static String fixString(String broken) {
+    public static String fixString(String broken) throws IllegalArgumentException {
+        if (broken == null) {
+            throw new IllegalArgumentException();
+        }
         var result = broken.toCharArray();
         for (var i = 0; i < result.length / 2; i++) {
             var temp = result[i * 2];

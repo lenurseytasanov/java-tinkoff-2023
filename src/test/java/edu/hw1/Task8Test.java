@@ -37,4 +37,32 @@ public class Task8Test {
             {1, 0, 0, 0, 0, 0, 0, 0}
         }));
     }
+
+    @Test
+    void invalidInputTest() {
+        assertThrows(IllegalArgumentException.class, () -> Task8.knightBoardCapture(null));
+        assertThrows(IllegalArgumentException.class, () -> Task8.knightBoardCapture(new int[][] {
+            {0, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0},
+            null,
+            {1, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0},
+            null,
+            {1, 0, 0, 0, 0, 0, 0, 0}
+        }));
+        assertThrows(IllegalArgumentException.class, () -> Task8.knightBoardCapture(new int[][] {
+            {1, 0, 0, 0, 0, 0, 0, 0}
+        }));
+        assertThrows(IllegalArgumentException.class, () -> Task8.knightBoardCapture(new int[][] {
+            {0, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0},
+            {0, 0, 0, 1, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0}
+        }));
+    }
 }

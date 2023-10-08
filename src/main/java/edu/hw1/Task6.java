@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public final class Task6 {
+    private final static int MIN_VALUE = 1000;
+
     private Task6() {
     }
 
     public static int countK(int number) {
-        if (number <= 1000) {
+        if (number <= MIN_VALUE) {
             return -1;
         }
         return countK(Integer.toString(number), 0);

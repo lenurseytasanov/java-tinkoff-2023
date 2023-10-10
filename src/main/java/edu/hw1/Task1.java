@@ -16,7 +16,8 @@ public final class Task1 {
                     if (minutes >= 0 && seconds >= 0 && seconds < SECONDS_NUMBER) {
                         return minutes * SECONDS_NUMBER + seconds;
                     }
-                } catch (NumberFormatException ignored) {
+                } catch (NumberFormatException exception) {
+                    return -1;
                 }
             }
         }

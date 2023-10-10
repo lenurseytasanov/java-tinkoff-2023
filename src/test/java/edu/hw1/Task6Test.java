@@ -10,7 +10,13 @@ public class Task6Test {
         assertEquals(5, Task6.countK(6621));
         assertEquals(4, Task6.countK(6554));
         assertEquals(3, Task6.countK(1234));
+    }
+
+    @Test
+    void invalidInputTest() {
         assertEquals(-1, Task6.countK(200));
-        assertEquals(-1, Task6.countK(-20000));
+        assertEquals(-1, Task6.countK(-2000));
+        assertEquals(-1, Task6.countK(2222));
+        assertEquals(-1, Task6.countK(1000000));
     }
 }

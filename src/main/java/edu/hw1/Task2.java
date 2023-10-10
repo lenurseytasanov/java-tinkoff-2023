@@ -7,15 +7,12 @@ public final class Task2 {
     }
 
     public static int countDigits(int number) {
-        if (number == 0) {
-            return 1;
-        }
         var remainder = number;
         var count = 0;
-        while (remainder != 0) {
+        do {
             count++;
             remainder /= RADIX;
-        }
+        } while (remainder != 0);
         return count;
     }
 }

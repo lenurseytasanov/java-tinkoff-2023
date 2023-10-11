@@ -18,5 +18,6 @@ public class Task6Test {
         assertEquals(-1, Task6.countK(-2000));
         assertEquals(-1, Task6.countK(2222));
         assertEquals(-1, Task6.countK(1000000));
+        assertEquals(-1, Task6.countK(54323));
     }
 }

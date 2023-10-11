@@ -1,31 +1,21 @@
 package edu.hw1;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 public final class Task6 {
-    private final static int MIN_VALUE = 1000;
+    private final static int MIN_VALUE = 1001;
+    private final static int MAX_VALUE = 9999;
+
+    private final static int MOD = 1111;
 
     private Task6() {
     }
 
-    public static int countK(int number) throws StackOverflowError {
-        if (number <= MIN_VALUE || hasEqualDigits(number)) {
+    public static int countK(int number) {
+        if (number < MIN_VALUE || number > MAX_VALUE || number % MOD == 0) {
             return -1;
         }
-        try {
-            return countK(Integer.toString(number), 0);
-        } catch (StackOverflowError error) {
-            return -1;
-        }
-    }
-
-    private static boolean hasEqualDigits(int number) {
-        var set = new HashSet<Character>();
-        for (var digit : Integer.toString(number).toCharArray()) {
-            set.add(digit);
-        }
-        return set.size() == 1;
+        return countK(Integer.toString(number), 0);
     }
 
     private static int countK(String number, int count) {

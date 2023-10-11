@@ -20,8 +20,8 @@ public class Task5 {
     private static String getDescendant(String string) {
         var stringBuilder = new StringBuilder();
         for (var i = 0; i < string.length() / 2; i++) {
-            var digit1 = Integer.parseInt(Character.toString(string.charAt(2 * i)));
-            var digit2 = Integer.parseInt(Character.toString(string.charAt(2 * i + 1)));
+            var digit1 = string.charAt(2 * i) - '0';
+            var digit2 = string.charAt(2 * i + 1) - '0';
             stringBuilder.append(digit1 + digit2);
         }
         return stringBuilder.toString();

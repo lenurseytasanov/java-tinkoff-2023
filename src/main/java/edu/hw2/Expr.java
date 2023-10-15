@@ -3,13 +3,13 @@ package edu.hw2;
 public sealed interface Expr {
     double evaluate();
 
-    public record Constant(double x) implements Expr {
+    record Constant(double number) implements Expr {
         public double evaluate() {
-            return x;
+            return number;
         }
     }
 
-    public record Negate(Expr x, Expr y) implements Expr {
+    record Negate(Expr x, Expr y) implements Expr {
         public Negate(Expr y) {
             this(new Constant(0), y);
         }
@@ -26,7 +26,7 @@ public sealed interface Expr {
             this(x, new Constant(y));
         }
 
-        public Negate(int x, Expr y) {
+        public Negate(double x, Expr y) {
             this(new Constant(x), y);
         }
 
@@ -35,7 +35,7 @@ public sealed interface Expr {
         }
     }
 
-    public record Exponent(Expr x, Expr y) implements Expr {
+    record Exponent(Expr x, Expr y) implements Expr {
         public Exponent(double x, double y) {
             this(new Constant(x), new Constant(y));
         }
@@ -53,7 +53,7 @@ public sealed interface Expr {
         }
     }
 
-    public record Addition(Expr x, Expr y) implements Expr {
+    record Addition(Expr x, Expr y) implements Expr {
         public Addition(double x, double y) {
             this(new Constant(x), new Constant(y));
         }
@@ -71,7 +71,7 @@ public sealed interface Expr {
         }
     }
 
-    public record Multiplication(Expr x, Expr y) implements Expr {
+    record Multiplication(Expr x, Expr y) implements Expr {
         public Multiplication(double x, double y) {
             this(new Constant(x), new Constant(y));
         }

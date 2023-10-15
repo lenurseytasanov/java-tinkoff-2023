@@ -27,4 +27,15 @@ public class Task1Test {
             new Addition(new Multiplication(23.5, new Negate(5.3, 3.2)), new Exponent(3.2, 1.2)).evaluate(),
             DELTA);
     }
+
+    @Test
+    public void test3() {
+        assertEquals(-1, new Negate(1).evaluate(), DELTA);
+        assertEquals(0, new Negate(1, new Constant(1)).evaluate(), DELTA);
+        assertEquals(0, new Negate(new Constant(1), 1).evaluate(), DELTA);
+        assertEquals(4, new Exponent(2, new Constant(2)).evaluate(), DELTA);
+        assertEquals(4, new Addition(2, 2).evaluate(), DELTA);
+        assertEquals(4, new Addition(new Constant(2), 2).evaluate(), DELTA);
+        assertEquals(4, new Multiplication(new Constant(2), 2).evaluate(), DELTA);
+    }
 }

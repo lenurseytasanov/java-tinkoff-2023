@@ -1,5 +1,6 @@
 package edu.hw2;
 
+import edu.hw2.Task2.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

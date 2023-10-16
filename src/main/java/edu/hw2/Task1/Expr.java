@@ -1,4 +1,4 @@
-package edu.hw2;
+package edu.hw2.Task1;
 
 public sealed interface Expr {
     double evaluate();

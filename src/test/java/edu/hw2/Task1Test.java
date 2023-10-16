@@ -2,7 +2,7 @@ package edu.hw2;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import edu.hw2.Expr.*;
+import edu.hw2.Task1.Expr.*;
 
 public class Task1Test {
     public final static double DELTA = 0.01;

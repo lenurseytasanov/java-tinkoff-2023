@@ -14,19 +14,14 @@ public final class PopularCommandExecutor {
     }
 
     public void tryExecute(String command) {
-        var isSuccess = true;
         for (var attempt = 0; attempt < maxAttempts; attempt++) {
             try (Connection connection = manager.getConnection()) {
-                isSuccess = true;
                 connection.execute(command);
+                return;
             } catch (Exception exception) {
-                isSuccess = false;
                 if (attempt == maxAttempts - 1) {
                     throw new ConnectionException("message", exception.getCause());
                 }
-            }
-            if (isSuccess) {
-                return;
             }
         }
     }

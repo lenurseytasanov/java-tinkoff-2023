@@ -2,24 +2,30 @@ package edu.project1;
 
 import org.apache.logging.log4j.Logger;
 
-public class GuessResult {
-    private final String userInput;
-    private final String state;
-    private final String message;
-    private final boolean isComplete;
+public sealed interface GuessResult {
+    void print(Logger logger);
 
-    public boolean isComplete() {
-        return isComplete;
+    record SuccessfulGuess(String userInput, String state) implements  GuessResult {
+        public void print(Logger logger) {
+            logger.info(String.format("Hit!\nThe word: %s\n%s", userInput, state));
+        }
     }
 
-    public GuessResult(String userInput, String state, String message, boolean isComplete) {
-        this.userInput = userInput;
-        this.state = state;
-        this.message = message;
-        this.isComplete = isComplete;
+    record FailedGuess(String userInput, String state) implements GuessResult {
+        public void print(Logger logger) {
+            logger.info(String.format("Missed!\nThe word: %s\n%s", userInput, state));
+        }
     }
 
-    public void print(Logger logger) {
-        logger.info(String.format("%s\nThe word: %s\n%s", message, userInput, state));
+    record Win(String userInput, String state) implements GuessResult {
+        public void print(Logger logger) {
+            logger.info(String.format("Win!\nThe word: %s\n%s", userInput, state));
+        }
+    }
+
+    record Defeat(String userInput, String state) implements GuessResult {
+        public void print(Logger logger) {
+            logger.info(String.format("Lost!\nThe word: %s\n%s", userInput, state));
+        }
     }
 }

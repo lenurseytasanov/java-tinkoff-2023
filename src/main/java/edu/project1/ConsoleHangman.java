@@ -21,7 +21,7 @@ public class ConsoleHangman {
         do {
             result = tryGuess();
             printResult(result);
-        } while (!result.isComplete());
+        } while (scanner.hasNext() && !(result instanceof  GuessResult.Win || result instanceof GuessResult.Defeat));
     }
 
     private GuessResult tryGuess() {
@@ -29,7 +29,7 @@ public class ConsoleHangman {
         do {
             LOGGER.info("Guess a letter or type 'giveup': ");
             input = scanner.next();
-        } while (!input.matches("[A-Za-z]|giveup"));
+        } while (scanner.hasNext() && !input.matches("[A-Za-z]|giveup"));
         if (input.equals("giveup")) {
             return session.giveUp();
         }
@@ -39,5 +39,9 @@ public class ConsoleHangman {
 
     private void printResult(GuessResult result) {
         result.print(LOGGER);
+    }
+
+    public Session getSession() {
+        return session;
     }
 }

@@ -69,19 +69,27 @@ public class Session {
         return getLostResult();
     }
 
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public char[] getUserInput() {
+        return userInput;
+    }
+
     private GuessResult getWinResult() {
-        return new GuessResult(new String(userInput), gameStates[attempts], "Win!", true);
+        return new GuessResult.Win(new String(userInput), gameStates[attempts]);
     }
 
     private GuessResult getHitResult() {
-        return new GuessResult(new String(userInput), gameStates[attempts], "Hit!", false);
+        return new GuessResult.SuccessfulGuess(new String(userInput), gameStates[attempts]);
     }
 
     private GuessResult getLostResult() {
-        return new GuessResult(new String(userInput), gameStates[attempts], "Lost!", true);
+        return new GuessResult.Defeat(new String(userInput), gameStates[attempts]);
     }
 
     private GuessResult getMissedResult() {
-        return new GuessResult(new String(userInput), gameStates[attempts], "Missed!", false);
+        return new GuessResult.FailedGuess(new String(userInput), gameStates[attempts]);
     }
 }

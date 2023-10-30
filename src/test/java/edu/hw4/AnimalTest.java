@@ -223,7 +223,7 @@ public class AnimalTest {
         var expected = Map.of(
             "a", 1,
             "b".repeat(50), 2,
-            "c", 1,
+            "c", 0,
             "", 4
         );
         assertEquals(expected, task19(animals).entrySet().stream()

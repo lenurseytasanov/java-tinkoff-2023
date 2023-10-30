@@ -10,6 +10,8 @@ public class ConsoleHangman {
     private final Scanner scanner;
     private final static Logger LOGGER = LogManager.getLogger();
 
+    private final static String LOSE_COMMAND = "giveup";
+
     public ConsoleHangman(InputStream source, Dictionary dictionary) {
         scanner = new Scanner(source);
         session = new Session(dictionary);
@@ -17,23 +19,23 @@ public class ConsoleHangman {
 
     public void run() {
         LOGGER.info("HANGMAN");
-        GuessResult result;
-        do {
+        GuessResult result = null;
+        while (!(result instanceof GuessResult.Win || result instanceof GuessResult.Defeat)) {
             result = tryGuess();
             printResult(result);
-        } while (scanner.hasNext() && !(result instanceof  GuessResult.Win || result instanceof GuessResult.Defeat));
+        }
     }
 
     private GuessResult tryGuess() {
         var input = "";
-        do {
-            LOGGER.info("Guess a letter or type 'giveup': ");
-            input = scanner.next();
-        } while (scanner.hasNext() && !input.matches("[A-Za-z]|giveup"));
-        if (input.equals("giveup")) {
+        LOGGER.info("Guess a letter or type 'giveup': ");
+        while (!input.matches("giveup|[A-Za-z]")) {
+            input = scanner.hasNext() ? scanner.next() : LOSE_COMMAND;
+        }
+        if (input.equals(LOSE_COMMAND)) {
             return session.giveUp();
         }
-        var chr = input.charAt(0);
+        var chr = input.toLowerCase().charAt(0);
         return session.guess(chr);
     }
 

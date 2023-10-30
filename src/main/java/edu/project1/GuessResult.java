@@ -5,6 +5,10 @@ import org.apache.logging.log4j.Logger;
 public sealed interface GuessResult {
     void print(Logger logger);
 
+    String userInput();
+
+    String state();
+
     record SuccessfulGuess(String userInput, String state) implements  GuessResult {
         public void print(Logger logger) {
             logger.info(String.format("Hit!\nThe word: %s\n%s", userInput, state));

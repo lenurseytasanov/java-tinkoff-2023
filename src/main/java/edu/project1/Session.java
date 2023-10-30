@@ -54,11 +54,11 @@ public class Session {
             }
         }
         var word = new String(userInput);
-        if (isSuccessful && !word.contains("*")) {
+        if (attempts < gameStates.length - 1 && !word.contains("*")) {
             return getWinResult();
-        } else if (isSuccessful) {
+        } else if (attempts < gameStates.length - 1 && isSuccessful) {
             return getHitResult();
-        } else if (++attempts == gameStates.length - 1) {
+        } else if (attempts == gameStates.length - 1 || ++attempts == gameStates.length - 1) {
             return getLostResult();
         } else {
             return getMissedResult();

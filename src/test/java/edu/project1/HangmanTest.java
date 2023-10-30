@@ -12,6 +12,45 @@ public class HangmanTest {
     }
 
     @Test
+    void guessTest1() {
+        var game = new ConsoleHangman(getInputStream(""), new Dictionary(new String[] {"test"}));
+        var session = game.getSession();
+        assertTrue(session.guess('t') instanceof GuessResult.SuccessfulGuess);
+        assertEquals(0, session.getAttempts());
+
+        assertTrue(session.guess('t') instanceof GuessResult.SuccessfulGuess);
+        assertEquals(0, session.getAttempts());
+
+        assertTrue(session.guess('y') instanceof GuessResult.FailedGuess);
+        assertEquals(1, session.getAttempts());
+
+        assertTrue(session.guess('y') instanceof GuessResult.FailedGuess);
+        assertEquals(2, session.getAttempts());
+
+        assertTrue(session.guess('e') instanceof GuessResult.SuccessfulGuess);
+        assertEquals(2, session.getAttempts());
+
+        assertTrue(session.guess('s') instanceof GuessResult.Win);
+        assertEquals(2, session.getAttempts());
+
+        assertTrue(session.guess('q') instanceof GuessResult.Win);
+        assertEquals(2, session.getAttempts());
+    }
+
+    @Test
+    void guessTest2() {
+        var game = new ConsoleHangman(getInputStream(""), new Dictionary(new String[] {"test"}));
+        var session = game.getSession();
+        for (var i = 0; i < 4; i++) {
+            assertTrue(session.guess('k') instanceof GuessResult.FailedGuess);
+        }
+        assertTrue(session.guess('k') instanceof GuessResult.Defeat);
+        assertTrue(session.guess('t') instanceof GuessResult.Defeat);
+        assertTrue(session.guess('e') instanceof GuessResult.Defeat);
+        assertTrue(session.guess('s') instanceof GuessResult.Defeat);
+    }
+
+    @Test
     void winTest() {
         var game = new ConsoleHangman(getInputStream(""), new Dictionary(new String[] {"test"}));
         var session = game.getSession();

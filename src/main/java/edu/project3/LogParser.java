@@ -63,10 +63,11 @@ public final class LogParser {
     public static LogReport getReport(@NotNull Map<String, String> args) {
         try {
             var path = args.get("path");
-            var paths = getPaths(path);
+            var uri = path != null ? path : "";
+            var paths = getPaths(uri);
             Stream<LogRecord> records;
-            if (path.startsWith("http")) {
-                records = getLogRecordsUri(path);
+            if (uri.startsWith("http")) {
+                records = getLogRecordsUri(uri);
             } else {
                 records = getLogRecords(paths);
             }

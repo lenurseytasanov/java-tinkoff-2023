@@ -37,9 +37,18 @@ public class LogParserTest {
 
     @Test
     void getReportTest() {
-        assertNull(LogParser.getReport(Map.of()));
+        assertEquals(new LogReport(
+            Map.of("files", "", "date_to", "-", "date_from", "-", "avg", "0", "count", "0"),
+            List.of(),
+            List.of()),
+            LogParser.getReport(Map.of()));
 
-        assertNotNull(LogParser.getReport(Map.of("path", "", "from", "-", "to", "-")));
+        assertNotNull(LogParser.getReport(Map.of(
+            "path", "-",
+            "from", "-",
+            "to", "-",
+            "format", "markdown"
+        )));
     }
 
     @Test

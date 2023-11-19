@@ -72,7 +72,11 @@ public final class LogParser {
                 records = getLogRecords(paths);
             }
 
-            return LogReport.getReport(paths, args.get("from"), args.get("to"), records);
+            var dateFrom = args.get("from");
+            var dateTo = args.get("to");
+
+            return LogReport.getReport(
+                paths, dateFrom != null ? dateFrom : "-", dateTo != null ? dateTo : "-", records);
         } catch (IllegalArgumentException e) {
             return null;
         }

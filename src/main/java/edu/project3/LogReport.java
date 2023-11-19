@@ -14,8 +14,8 @@ public record LogReport(
     private final static int TOP_LIMIT = 3;
 
     public static LogReport getReport(
-        @NotNull List<Path> files, @NotNull String dateFrom,
-        @NotNull String dateTo, @NotNull Stream<LogRecord> records
+        @NotNull List<Path> files, String dateFrom,
+        String dateTo, @NotNull Stream<LogRecord> records
     ) {
         var filtered = records.filter(rec ->
                 (dateFrom.equals("-") || rec.time().isAfter(OffsetDateTime.parse(dateFrom)))

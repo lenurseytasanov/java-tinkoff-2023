@@ -9,23 +9,36 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class Task3Test {
     @Test
     void standardTest() {
-        assertEquals(LocalDate.of(2020, 10, 10), parseDate("2020-10-10").orElseThrow());
-        assertEquals(LocalDate.of(2020, 12, 2), parseDate("2020-12-2").orElseThrow());
-        assertEquals(LocalDate.of(1976, 3, 1), parseDate("1/3/1976").orElseThrow());
-        assertEquals(LocalDate.of(2020, 3, 1), parseDate("1/3/20").orElseThrow());
+        var actual1 = parseDate("2020-10-10").orElseThrow();
+        var actual2 = parseDate("2020-12-2").orElseThrow();
+        var actual3 = parseDate("1/3/1976").orElseThrow();
+        var actual4 = parseDate("1/3/20").orElseThrow();
+
+        assertEquals(LocalDate.of(2020, 10, 10), actual1);
+        assertEquals(LocalDate.of(2020, 12, 2), actual2);
+        assertEquals(LocalDate.of(1976, 3, 1), actual3);
+        assertEquals(LocalDate.of(2020, 3, 1), actual4);
     }
 
     @Test
     void specialFormatTest() {
-        assertEquals(LocalDate.now().minusDays(1), parseDate("yesterday").orElseThrow());
-        assertEquals(LocalDate.now(), parseDate("today").orElseThrow());
-        assertEquals(LocalDate.now().plusDays(1), parseDate("tomorrow").orElseThrow());
-        assertEquals(LocalDate.now().minusDays(1), parseDate("1 day ago").orElseThrow());
-        assertEquals(LocalDate.now().minusDays(2234), parseDate("2234 days ago").orElseThrow());
+        var actual1 = parseDate("yesterday").orElseThrow();
+        var actual2 = parseDate("today").orElseThrow();
+        var actual3 = parseDate("tomorrow").orElseThrow();
+        var actual4 = parseDate("1 day ago").orElseThrow();
+        var actual5 = parseDate("2234 days ago").orElseThrow();
+
+        assertEquals(LocalDate.now().minusDays(1), actual1);
+        assertEquals(LocalDate.now(), actual2);
+        assertEquals(LocalDate.now().plusDays(1), actual3);
+        assertEquals(LocalDate.now().minusDays(1), actual4);
+        assertEquals(LocalDate.now().minusDays(2234), actual5);
     }
 
     @Test
     void illegalFormatTest() {
-        assertTrue(parseDate("last week").isEmpty());
+        var condition = parseDate("last week").isEmpty();
+
+        assertTrue(condition);
     }
 }

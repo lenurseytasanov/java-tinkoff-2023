@@ -6,15 +6,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Task6Test {
     @Test
-    void mainTest() {
-        assertTrue(Task6.isSubstring("abc", "achfdbaabgabcaabg"));
-        assertTrue(Task6.isSubstring("abc", "abc"));
-        assertTrue(Task6.isSubsequence("abc", "abc"));
+    void subsequenceTest() {
+        var actual1 = Task6.isSubsequence("abc", "abc");
+        var actual2 = Task6.isSubsequence("abc", "atbtc");
+        var actual3 = Task6.isSubsequence("abc", "ab");
 
-        assertFalse(Task6.isSubstring("abc", "atbtc"));
-        assertTrue(Task6.isSubsequence("abc", "atbtc"));
+        assertTrue(actual1);
+        assertTrue(actual2);
+        assertFalse(actual3);
+    }
 
-        assertFalse(Task6.isSubsequence("abc", "ab"));
-        assertFalse(Task6.isSubstring("abc", "ab"));
+    @Test
+    void substringTest() {
+        var actual1 = Task6.isSubstring("abc", "achfdbaabgabcaabg");
+        var actual2 = Task6.isSubstring("abc", "abc");
+        var actual3 = Task6.isSubstring("abc", "atbtc");
+        var actual4 = Task6.isSubstring("abc", "ab");
+
+        assertTrue(actual1);
+        assertTrue(actual2);
+        assertFalse(actual3);
+        assertFalse(actual4);
     }
 }

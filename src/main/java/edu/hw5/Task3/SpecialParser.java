@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 
 public class SpecialParser extends DateParser {
-    private final static Map<Pattern, Function<Matcher, Integer>> FORMATS = Map.of(
+    private static final Map<Pattern, Function<Matcher, Integer>> FORMATS = Map.of(
         Pattern.compile("tomorrow"), matcher -> 1,
         Pattern.compile("today"), matcher -> 0,
         Pattern.compile("yesterday"), matcher -> -1,

@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 public class StandardParser extends DateParser {
-    private final static List<SimpleDateFormat> FORMATS = List.of(
+    private static final List<SimpleDateFormat> FORMATS = List.of(
         new SimpleDateFormat("yyyy-MM-dd"),
         new SimpleDateFormat("yyyy-MM-d"),
         new SimpleDateFormat("d/M/yy"),

@@ -9,13 +9,13 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 public final class Task2 {
-    private final static int UNLUCKY_NUMBER = 13;
+    private static final int UNLUCKY_NUMBER = 13;
 
     private Task2() { }
 
     public static List<String> getAllFridays13th(int year) {
-        var date = LocalDate.of(year, 1, 1);
-        var result = new ArrayList<String>();
+        LocalDate date = LocalDate.of(year, 1, 1);
+        List<String> result = new ArrayList<>();
         for (var day = 0; day < date.lengthOfYear(); day++) {
             if (date.getDayOfWeek() == DayOfWeek.FRIDAY && date.getDayOfMonth() == UNLUCKY_NUMBER) {
                 result.addLast(date.toString());

@@ -24,7 +24,9 @@ public final class Maze {
 
     public Maze(int width, int height) {
         if (height < MIN_MAZE_SIZE || width < MIN_MAZE_SIZE) {
-            LOGGER.log(Level.ERROR, "exception: ", new IllegalArgumentException("Size must be at least '3'"));
+            var e = new IllegalArgumentException("Size must be at least '3'");
+            LOGGER.log(Level.ERROR, "exception: ", e);
+            throw e;
         }
         this.width = width;
         this.height = height;

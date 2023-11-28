@@ -14,12 +14,12 @@ public class DfsCarvingGenerator implements Generator {
         while (!stack.isEmpty()) {
             var current = stack.removeLast();
             if (maze.getNeighbors(current).stream()
-                .filter(cell -> cell.type() == Cell.Type.PASSAGE).count() > 1) {
+                .filter(cell -> cell.type() == Type.PASSAGE).count() > 1) {
                 continue;
             }
-            grid[current.row()][current.col()] = new Cell(current.row(), current.col(), Cell.Type.PASSAGE);
+            grid[current.row()][current.col()] = new Cell(current.row(), current.col(), Type.PASSAGE);
             var nextCells = new ArrayList<>(maze.getNeighbors(current).stream()
-                .filter(cell -> cell.type() == Cell.Type.WALL).toList());
+                .filter(cell -> cell.type() == Type.WALL).toList());
             Collections.shuffle(nextCells);
             for (var next : nextCells) {
                 stack.addLast(next);

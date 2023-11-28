@@ -5,23 +5,33 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Maze {
+
+    private final static Logger LOGGER = LogManager.getLogger();
+
     private final static int MIN_MAZE_SIZE = 3;
+
     private final int height;
+
     private final int width;
+
     private final Cell[][] grid;
+
 
     public Maze(int width, int height) {
         if (height < MIN_MAZE_SIZE || width < MIN_MAZE_SIZE) {
-            throw new IllegalArgumentException("Size must be at least '3'");
+            LOGGER.log(Level.ERROR, "exception: ", new IllegalArgumentException("Size must be at least '3'"));
         }
         this.width = width;
         this.height = height;
         this.grid = new Cell[height][width];
         for (var i = 0; i < height; i++) {
             for (var j = 0; j < width; j++) {
-                grid[i][j] = new Cell(i, j, Cell.Type.WALL);
+                grid[i][j] = new Cell(i, j, Type.WALL);
             }
         }
     }
@@ -30,7 +40,7 @@ public final class Maze {
         this(map[0].length(), map.length);
         for (var i = 0; i < height; i++) {
             for (var j = 0; j < width; j++) {
-                this.grid[i][j] = new Cell(i, j, map[i].charAt(j) == 'W' ? Cell.Type.WALL : Cell.Type.PASSAGE);
+                this.grid[i][j] = new Cell(i, j, map[i].charAt(j) == 'W' ? Type.WALL : Type.PASSAGE);
             }
         }
     }
@@ -69,7 +79,7 @@ public final class Maze {
 
     public Coordinate getFarthestPoint(Coordinate start) {
         return Arrays.stream(this.grid).flatMap(Arrays::stream)
-            .filter(cell -> cell.type() == Cell.Type.PASSAGE)
+            .filter(cell -> cell.type() == Type.PASSAGE)
             .map(cell -> new Coordinate(cell.row(), cell.col()))
             .max(Comparator.comparingDouble(point -> Coordinate.getDistance(start, point)))
             .orElseThrow(NoSuchElementException::new);

@@ -18,8 +18,8 @@ public class MainTest {
         Generator generator = new DfsCarvingGenerator();
         assertThrows(IllegalArgumentException.class, () -> generator.generate(1, 2));
         var maze = new Maze(3, 3);
-        assertThrows(IllegalArgumentException.class, () -> maze.getNeighbors(new Cell(-1, 1, Cell.Type.WALL)));
-        assertDoesNotThrow(() -> maze.getNeighbors(new Cell(1, 1, Cell.Type.WALL)));
+        assertThrows(IllegalArgumentException.class, () -> maze.getNeighbors(new Cell(-1, 1, Type.WALL)));
+        assertDoesNotThrow(() -> maze.getNeighbors(new Cell(1, 1, Type.WALL)));
     }
 
     private static @NotNull Stream<Arguments> getArguments() {
@@ -90,7 +90,7 @@ public class MainTest {
             var height = random.nextInt(MIN_MAZE_SIZE, MAX_MAZE_SIZE + 1);
             var maze = generator.generate(height, width);
             var available = Arrays.stream(maze.getGrid()).flatMap(Arrays::stream)
-                .filter(cell -> cell.type() == Cell.Type.PASSAGE).toList();
+                .filter(cell -> cell.type() == Type.PASSAGE).toList();
             var start = available.get(random.nextInt(available.size())).getCoordinate();
             var end = maze.getFarthestPoint(start);
             var path = solver.solve(maze, start, end);

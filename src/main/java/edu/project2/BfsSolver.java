@@ -15,7 +15,7 @@ public class BfsSolver implements Solver {
         while (!queue.isEmpty() && !current.equals(end)) {
             current = queue.removeFirst();
             var nextSteps = maze.getNeighbors(maze.getGrid()[current.row()][current.col()]).stream()
-                .filter(cell -> cell.type() == Cell.Type.PASSAGE)
+                .filter(cell -> cell.type() == Type.PASSAGE)
                 .map(Cell::getCoordinate)
                 .filter(point -> !transitions.containsKey(point)).toList();
             for (var next : nextSteps) {
@@ -23,7 +23,7 @@ public class BfsSolver implements Solver {
                 transitions.put(next, current);
             }
         }
-        if (!current.equals(end) || maze.getGrid()[current.row()][current.col()].type() == Cell.Type.WALL) {
+        if (!current.equals(end) || maze.getGrid()[current.row()][current.col()].type() == Type.WALL) {
             return List.of();
         }
         var path = new ArrayList<Coordinate>();

@@ -26,16 +26,18 @@ public class Task3Test {
         filter = filter.and(Files::isReadable)
             .and(AbstractFilter.largerThen(10));
 
-        try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
-            var paths = new ArrayList<Path>();
-            dirStream.forEach(paths::addLast);
+        List<Path> paths;
 
-            assertEquals(2, paths.size());
-            assertTrue(paths.contains(FILES.get(0)));
-            assertTrue(paths.contains(FILES.get(2)));
+        try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
+            paths = new ArrayList<>();
+            dirStream.forEach(paths::addLast);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        assertEquals(2, paths.size());
+        assertTrue(paths.contains(FILES.get(0)));
+        assertTrue(paths.contains(FILES.get(2)));
     }
 
     @Test
@@ -43,15 +45,16 @@ public class Task3Test {
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.globMatches("*.wav"));
 
+        List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
-            var paths = new ArrayList<Path>();
+            paths = new ArrayList<>();
             dirStream.forEach(paths::addLast);
-
-            assertEquals(1, paths.size());
-            assertEquals(FILES.get(3), paths.get(0));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        assertEquals(1, paths.size());
+        assertEquals(FILES.get(3), paths.get(0));
     }
 
     @Test
@@ -59,16 +62,17 @@ public class Task3Test {
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.regexContains("test\\d"));
 
+        List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
-            var paths = new ArrayList<Path>();
+            paths = new ArrayList<>();
             dirStream.forEach(paths::addLast);
-
-            assertEquals(2, paths.size());
-            assertTrue(paths.contains(FILES.get(0)));
-            assertTrue(paths.contains(FILES.get(1)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        assertEquals(2, paths.size());
+        assertTrue(paths.contains(FILES.get(0)));
+        assertTrue(paths.contains(FILES.get(1)));
     }
 
     @Test
@@ -76,16 +80,17 @@ public class Task3Test {
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.magicNumber((byte) 0x89, (byte) 0x50, (byte) 0x4e, (byte) 0x47));
 
+        List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
-            var paths = new ArrayList<Path>();
+            paths = new ArrayList<>();
             for (var path : dirStream) {
                 paths.addLast(path);
             }
-
-            assertEquals(1, paths.size());
-            assertEquals("test.png", paths.get(0).getFileName().toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        assertEquals(1, paths.size());
+        assertEquals("test.png", paths.get(0).getFileName().toString());
+
     }
 }

@@ -5,17 +5,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Task5Test {
-    private final static long[] DATA = HackerNews.hackerNewsTopStories();
 
     @Test
     void newsArrayTest() {
-        assertTrue(DATA.length > 0);
+        var actual = HackerNews.hackerNewsTopStories();
+
+        assertTrue(actual.length > 0);
     }
 
     @Test
     void newsTitleTest() {
-        assertTrue(HackerNews.news(-1).isEmpty());
+        var data = HackerNews.hackerNewsTopStories();
 
-        assertTrue(HackerNews.news(DATA[0]).isPresent());
+        var condition1 = HackerNews.news(-1).isEmpty();
+        var condition2 = HackerNews.news(data[0]).isPresent();
+
+        assertTrue(condition1);
+        assertTrue(condition2);
     }
 }

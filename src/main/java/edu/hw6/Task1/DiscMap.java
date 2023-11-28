@@ -10,11 +10,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class DiscMap implements Map<String, String> {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private final File file;
+
     private final Map<String, String> map;
 
     public DiscMap(@NotNull String path) {
@@ -24,6 +30,7 @@ public final class DiscMap implements Map<String, String> {
                 Files.createFile(Paths.get(path));
             }
         } catch (IOException e) {
+            LOGGER.error("", e);
             throw new RuntimeException(e);
         }
         map = new HashMap<>();
@@ -36,6 +43,7 @@ public final class DiscMap implements Map<String, String> {
                 bw.newLine();
             }
         } catch (IOException exception) {
+            LOGGER.error("", exception);
             throw new RuntimeException(exception);
         }
     }

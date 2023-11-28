@@ -27,6 +27,7 @@ public final class PortScanner {
                 .map(string -> string.split(","))
                 .collect(Collectors.toMap(entry -> Integer.parseInt(entry[0]), entry -> entry[1]));
         } catch (IOException e) {
+            LOGGER.error("error: ", e);
             throw new RuntimeException(e);
         }
     }

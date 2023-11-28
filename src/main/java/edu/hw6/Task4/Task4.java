@@ -10,9 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public final class Task4 {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private Task4() { }
 
     public static void writeFile(@NotNull Path path) {
@@ -24,6 +29,7 @@ public final class Task4 {
 
             printWriter.write("Programming is learned by writing programs. ― Brian Kernighan");
         } catch (IOException e) {
+            LOGGER.error("error: ", e);
             throw new RuntimeException(e);
         }
     }

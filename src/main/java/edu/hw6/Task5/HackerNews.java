@@ -8,9 +8,14 @@ import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import static java.net.http.HttpClient.newHttpClient;
 
 public final class HackerNews {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private HackerNews() { }
 
     public static long[] hackerNewsTopStories() {
@@ -26,6 +31,7 @@ public final class HackerNews {
                 .mapToLong(Long::parseLong)
                 .toArray();
         } catch (InterruptedException | IOException e) {
+            LOGGER.error("", e);
             return new long[0];
         }
     }
@@ -43,6 +49,7 @@ public final class HackerNews {
             var matcher = pattern.matcher(response.body());
             return matcher.find() ? Optional.of(matcher.group(1)) : Optional.empty();
         } catch (IOException | InterruptedException e) {
+            LOGGER.error("", e);
             return Optional.empty();
         }
     }

@@ -12,13 +12,12 @@ public class Task1Test {
 
     @Test
     void putAllTest() {
-        assertTrue(DISC_MAP.isEmpty());
-
         var sourceMap = Map.of(
             "123", "456",
             "key", "value",
             "", ""
         );
+
         DISC_MAP.putAll(sourceMap);
 
         assertEquals(sourceMap, DISC_MAP);

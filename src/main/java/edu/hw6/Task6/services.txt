@@ -1,0 +1,12 @@
+135,EPMAP
+137,Служба имен NetBIOS
+138,Служба датаграмм NetBIOS
+139,Служба сеансов NetBIOS
+445,Microsoft-DS Active Directory
+843,Adobe Flash
+1900,Simple Service Discovery Protocol (SSDP)
+3702,Динамическое обнаружение веб-служб
+5353,Многоадресный DNS
+5355,Link-Local Multicast Name Resolution (LLMNR)
+17500,Dropbox
+27017,MongoDB

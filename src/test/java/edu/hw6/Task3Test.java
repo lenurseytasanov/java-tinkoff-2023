@@ -22,12 +22,14 @@ public class Task3Test {
 
     @Test
     void fileSizeTest() {
+        // Arrange
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(Files::isReadable)
             .and(AbstractFilter.largerThen(10));
 
         List<Path> paths;
 
+        // Act
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
             paths = new ArrayList<>();
             dirStream.forEach(paths::addLast);
@@ -35,6 +37,7 @@ public class Task3Test {
             throw new RuntimeException(e);
         }
 
+        // Assert
         assertEquals(2, paths.size());
         assertTrue(paths.contains(FILES.get(0)));
         assertTrue(paths.contains(FILES.get(2)));
@@ -42,9 +45,11 @@ public class Task3Test {
 
     @Test
     void globTest() {
+        // Arrange
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.globMatches("*.wav"));
 
+        // Act
         List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
             paths = new ArrayList<>();
@@ -53,15 +58,18 @@ public class Task3Test {
             throw new RuntimeException(e);
         }
 
+        // Assert
         assertEquals(1, paths.size());
         assertEquals(FILES.get(3), paths.get(0));
     }
 
     @Test
     void regexTest() {
+        // Arrange
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.regexContains("test\\d"));
 
+        // Act
         List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
             paths = new ArrayList<>();
@@ -70,6 +78,7 @@ public class Task3Test {
             throw new RuntimeException(e);
         }
 
+        // Assert
         assertEquals(2, paths.size());
         assertTrue(paths.contains(FILES.get(0)));
         assertTrue(paths.contains(FILES.get(1)));
@@ -77,9 +86,11 @@ public class Task3Test {
 
     @Test
     void magicNumbersTest() {
+        // Arrange
         AbstractFilter filter = Files::isRegularFile;
         filter = filter.and(AbstractFilter.magicNumber((byte) 0x89, (byte) 0x50, (byte) 0x4e, (byte) 0x47));
 
+        // Act
         List<Path> paths;
         try (var dirStream = Files.newDirectoryStream(DIR, filter)) {
             paths = new ArrayList<>();
@@ -89,6 +100,8 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        // Assert
         assertEquals(1, paths.size());
         assertEquals("test.png", paths.get(0).getFileName().toString());
 

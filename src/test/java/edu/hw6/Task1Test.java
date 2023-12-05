@@ -12,25 +12,31 @@ public class Task1Test {
 
     @Test
     void putAllTest() {
+        // Arrange
         var sourceMap = Map.of(
             "123", "456",
             "key", "value",
             "", ""
         );
 
+        // Act
         DISC_MAP.putAll(sourceMap);
 
+        // Assert
         assertEquals(sourceMap, DISC_MAP);
     }
 
     @Test
     void putTest() {
+        // Arrange
         var key = "test";
         var value = "test";
         DISC_MAP.clear();
 
+        // Act
         DISC_MAP.put(key, value);
 
+        // Assert
         assertTrue(DISC_MAP.containsKey(key));
         assertEquals(1, DISC_MAP.size());
         assertEquals(value, DISC_MAP.get(key));
@@ -38,11 +44,14 @@ public class Task1Test {
 
     @Test
     void removeTest() {
+        // Arrange
         DISC_MAP.clear();
 
+        // Act
         DISC_MAP.put("key", "value");
         assertEquals(1, DISC_MAP.size());
 
+        // Assert
         assertEquals("value", DISC_MAP.remove("key"));
     }
 }

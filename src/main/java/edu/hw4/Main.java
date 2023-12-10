@@ -1,7 +1,5 @@
 package edu.hw4;
 
-import edu.hw4.Animal.Sex;
-import edu.hw4.Animal.Type;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -16,16 +14,30 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 public final class Main {
+
+    private final static int NAME_LENGTH_CONSTRAINT = 30;
+
+    private final static int AGE_UPPER_BOUND = 20;
+
+    private final static int HEIGHT_UPPER_BOUND = 150;
+
+    private final static int WEIGHT_UPPER_BOUND = 150;
+
+    private final static int HEIGHT_LIMIT = 100;
+
     private Main() { }
 
     public static List<Animal> task1(@NotNull List<Animal> animals) {
-        return animals.stream().sorted(Comparator.comparingInt(Animal::height)).toList();
+        return animals.stream()
+            .sorted(Comparator.comparingInt(Animal::height))
+            .toList();
     }
 
     public static List<Animal> task2(@NotNull List<Animal> animals, @NotNull Integer k) {
         return animals.stream()
             .sorted(Comparator.comparingInt(Animal::weight).reversed())
-            .limit(k).toList();
+            .limit(k)
+            .toList();
     }
 
     public static Map<Type, Integer> task3(@NotNull List<Animal> animals) {
@@ -44,23 +56,26 @@ public final class Main {
     public static Sex task5(@NotNull List<Animal> animals) {
         return animals.stream()
             .collect(Collectors.groupingBy(Animal::sex, Collectors.counting()))
-            .entrySet().stream().max(Comparator.comparingLong(Map.Entry::getValue))
-            .orElseThrow(NoSuchElementException::new).getKey();
+            .entrySet().stream()
+            .max(Comparator.comparingLong(Map.Entry::getValue))
+            .orElseThrow(NoSuchElementException::new)
+            .getKey();
     }
 
     public static Map<Type, Animal> task6(@NotNull List<Animal> animals) {
         return animals.stream()
             .collect(Collectors.groupingBy(Animal::type))
             .entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey, o -> o.getValue()
-                .stream().max(Comparator.comparingInt(Animal::weight))
+            .collect(Collectors.toMap(Map.Entry::getKey, o -> o.getValue().stream()
+                .max(Comparator.comparingInt(Animal::weight))
                 .orElseThrow(NoSuchElementException::new)));
     }
 
     public static Animal task7(@NotNull List<Animal> animals, @NotNull Integer k) {
         return animals.stream()
             .sorted(Comparator.comparingInt(Animal::age).reversed().thenComparing(animals::indexOf))
-            .toList().get(k - 1);
+            .toList()
+            .get(k - 1);
     }
 
     public static Optional<Animal> task8(@NotNull List<Animal> animals, @NotNull Integer k) {
@@ -79,8 +94,6 @@ public final class Main {
             .toList();
     }
 
-    private final static int HEIGHT_LIMIT = 100;
-
     public static List<Animal> task11(@NotNull List<Animal> animals) {
         return animals.stream()
             .filter(Animal::bites)
@@ -91,7 +104,8 @@ public final class Main {
     public static Integer task12(@NotNull List<Animal> animals) {
         return Long.valueOf(animals.stream()
             .filter(o -> o.weight() > o.height())
-            .count()).intValue();
+            .count())
+            .intValue();
     }
 
     public static List<Animal> task13(@NotNull List<Animal> animals) {
@@ -108,7 +122,8 @@ public final class Main {
     public static Integer task15(@NotNull List<Animal> animals, @NotNull Integer k, @NotNull Integer l) {
         return animals.stream()
             .filter(o -> o.age() >= k && o.age() <= l)
-            .mapToInt(Animal::weight).sum();
+            .mapToInt(Animal::weight)
+            .sum();
     }
 
     public static List<Animal> task16(@NotNull List<Animal> animals) {
@@ -143,11 +158,6 @@ public final class Main {
             .max(Comparator.comparingInt(Animal::weight))
             .orElseThrow(NoSuchElementException::new);
     }
-
-    private final static int NAME_LENGTH_CONSTRAINT = 30;
-    private final static int AGE_UPPER_BOUND = 20;
-    private final static int HEIGHT_UPPER_BOUND = 150;
-    private final static int WEIGHT_UPPER_BOUND = 150;
 
     public static Map<String, Set<ValidationError>> task19(@NotNull List<Animal> animals) {
         Map<String, Set<ValidationError>> result = new HashMap<>();

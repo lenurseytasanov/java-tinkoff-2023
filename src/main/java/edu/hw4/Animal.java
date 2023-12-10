@@ -9,18 +9,14 @@ public record Animal(
     int weight,
     boolean bites
 ) {
-    private final static int CAT_DOG_PAWS = 4;
-    private final static int BIRD_PAWS = 2;
-    private final static int FISH_PAWS = 0;
-    private final static int SPIDER_PAWS = 8;
+    private static final int CAT_DOG_PAWS = 4;
 
-    public enum Type {
-        CAT, DOG, BIRD, FISH, SPIDER
-    }
+    private static final int BIRD_PAWS = 2;
 
-    public enum Sex {
-        M, F
-    }
+    private static final int FISH_PAWS = 0;
+
+    private static final int SPIDER_PAWS = 8;
+
 
     public int paws() {
         return switch (type) {

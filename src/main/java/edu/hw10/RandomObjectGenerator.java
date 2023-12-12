@@ -1,23 +1,28 @@
 package edu.hw10;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Function;
-import static java.lang.Math.random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 public class RandomObjectGenerator {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final String INT_LABEL_0 = "integer";
+    private static final String INT_LABEL_1 = "int";
+    private static final String LONG_LABEL = "long";
+    private static final String FLOAT_LABEL = "float";
+    private static final String DOUBLE_LABEL = "double";
+    private static final String BOOLEAN_LABEL = "boolean";
+    private static final String STRING_LABEL = "string";
 
     public Object nextObject(@NotNull Class<?> cls, String methodName) {
         try {
@@ -32,7 +37,8 @@ public class RandomObjectGenerator {
                 result = method.invoke(null, args);
             }
             return result;
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException
+                 | IllegalAccessException | InvocationTargetException e) {
             LOGGER.error("error", e);
             throw new RuntimeException(e);
         }
@@ -69,32 +75,39 @@ public class RandomObjectGenerator {
     }
 
     private Object nextArg(@NotNull Class<?> numberClass, Double origin, Double bound) {
-        switch (numberClass.getSimpleName()) {
-            case "Integer", "int":
-                origin = origin == null ? (double) Integer.MIN_VALUE : origin;
-                bound = bound == null ? (double) Integer.MAX_VALUE : bound;
-                break;
-            case "Long", "long":
-                origin = origin == null ? (double) Long.MIN_VALUE : origin;
-                bound = bound == null ? (double) Long.MAX_VALUE : bound;
-                break;
-            case "Float", "float":
-                origin = origin == null ? (double) Float.MIN_VALUE : origin;
-                bound = bound == null ? (double) Float.MAX_VALUE : bound;
-                break;
-            case "Double", "double":
-                origin = origin == null ? Double.MIN_VALUE : origin;
-                bound = bound == null ? Double.MAX_VALUE : bound;
-                break;
-        }
-        return switch (numberClass.getSimpleName()) {
-            case "Integer", "int" -> ThreadLocalRandom.current().nextInt(origin.intValue(), bound.intValue());
-            case "Long", "long" -> ThreadLocalRandom.current().nextLong(origin.longValue(), bound.longValue());
-            case "Float", "float" -> ThreadLocalRandom.current().nextFloat(origin.floatValue(), bound.floatValue());
-            case "Double", "double" -> ThreadLocalRandom.current().nextDouble(origin, bound);
-            case "Boolean", "boolean" -> ThreadLocalRandom.current().nextBoolean();
-            case "String" -> Long.toHexString(ThreadLocalRandom.current().nextLong());
+        List<Double> bounds = getBounds(numberClass, origin, bound);
+        Double min = bounds.get(0);
+        Double max = bounds.get(1);
+        return switch (numberClass.getSimpleName().toLowerCase()) {
+            case INT_LABEL_0, INT_LABEL_1 -> ThreadLocalRandom.current().nextInt(min.intValue(), max.intValue());
+            case LONG_LABEL -> ThreadLocalRandom.current().nextLong(min.longValue(), max.longValue());
+            case FLOAT_LABEL -> ThreadLocalRandom.current().nextFloat(min.floatValue(), max.floatValue());
+            case DOUBLE_LABEL -> ThreadLocalRandom.current().nextDouble(min, max);
+            case BOOLEAN_LABEL -> ThreadLocalRandom.current().nextBoolean();
+            case STRING_LABEL -> Long.toHexString(ThreadLocalRandom.current().nextLong());
             default -> throw new IllegalArgumentException();
+        };
+    }
+
+    private List<Double> getBounds(Class<?> numberClass, Double min, Double max) {
+        return switch (numberClass.getSimpleName().toLowerCase()) {
+            case INT_LABEL_0, INT_LABEL_1 -> List.of(
+                min == null ? (double) Integer.MIN_VALUE : min,
+                max == null ? (double) Integer.MAX_VALUE : max
+            );
+            case LONG_LABEL -> List.of(
+                min == null ? (double) Long.MIN_VALUE : min,
+                max == null ? (double) Long.MAX_VALUE : max
+            );
+            case FLOAT_LABEL -> List.of(
+                min == null ? (double) Float.MIN_VALUE : min,
+                max == null ? (double) Float.MAX_VALUE : max
+            );
+            case DOUBLE_LABEL -> List.of(
+                min == null ? Double.MIN_VALUE : min,
+                max == null ? Double.MAX_VALUE : max
+            );
+            default -> List.of(0.0, 0.0);
         };
     }
 }

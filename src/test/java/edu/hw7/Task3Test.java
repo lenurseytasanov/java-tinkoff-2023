@@ -15,9 +15,10 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Task3Test {
-    private final static PersonDatabase DATABASE_1 = new ParallelSearchDatabase();
-    private final static PersonDatabase DATABASE_2 = new ParallelSearchDatabaseLock();
-    private final static List<Person> PERSON_TO_ADD = List.of(
+
+    private static final PersonDatabase DATABASE_1 = new ParallelSearchDatabase();
+    private static final PersonDatabase DATABASE_2 = new ParallelSearchDatabaseLock();
+    private static final List<Person> PERSON_TO_ADD = List.of(
         new Person(1, "John", "address1", "123"),
         new Person(2, "Mark", "address2", "124"),
         new Person(3, "John2", "address1", "126"),
@@ -58,10 +59,14 @@ public class Task3Test {
     @ParameterizedTest
     @MethodSource("provideDatabases")
     void findTest(PersonDatabase database) {
-        assertEquals(List.of(PERSON_TO_ADD.get(0)), database.findByName("John"));
+        // Act
+        var actual1 = database.findByName("John");
+        var actual2 = database.findByAddress("address1");
+        var actual3 = database.findByPhone("123");
 
-        assertEquals(List.of(PERSON_TO_ADD.get(0), PERSON_TO_ADD.get(2)), database.findByAddress("address1"));
-
-        assertEquals(List.of(PERSON_TO_ADD.get(0), PERSON_TO_ADD.get(3)), database.findByPhone("123"));
+        // Assert
+        assertEquals(List.of(PERSON_TO_ADD.get(0)), actual1);
+        assertEquals(List.of(PERSON_TO_ADD.get(0), PERSON_TO_ADD.get(2)), actual2);
+        assertEquals(List.of(PERSON_TO_ADD.get(0), PERSON_TO_ADD.get(3)), actual3);
     }
 }

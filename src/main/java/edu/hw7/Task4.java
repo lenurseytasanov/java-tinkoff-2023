@@ -3,10 +3,14 @@ package edu.hw7;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Task4 {
-    private final static long SQUARE_SIZE = 100_000;
-    private final static int CONST_MONTE_CARLO = 4;
+
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final long SQUARE_SIZE = 100_000;
+    private static final int CONST_MONTE_CARLO = 4;
 
     private Task4() { }
 
@@ -61,6 +65,7 @@ public final class Task4 {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                LOGGER.error("error", e);
                 throw new RuntimeException(e);
             }
         });

@@ -2,11 +2,16 @@ package edu.hw7;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Task1 {
+
     private Task1() { }
 
-    private final static AtomicInteger COUNTER = new AtomicInteger(0);
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    private static final AtomicInteger COUNTER = new AtomicInteger(0);
 
     public static void resetCounter() {
         COUNTER.set(0);
@@ -37,6 +42,7 @@ public final class Task1 {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                LOGGER.error("error", e);
                 throw new RuntimeException(e);
             }
         });

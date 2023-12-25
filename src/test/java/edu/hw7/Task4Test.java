@@ -6,12 +6,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Task4Test {
-    private final static Logger LOGGER = LogManager.getLogger();
+
     @Test
     void test() {
-        assertEquals(Math.PI, Task4.getPiMonteCarlo((long) 1e8), 1e-3);
-        assertEquals(Math.PI, Task4.getPiMonteCarloParallel((long) 1e8, 2), 1e-3);
+        // Act
+        double actual1 = Task4.getPiMonteCarlo((long) 1e8);
+        double actual2 = Task4.getPiMonteCarloParallel((long) 1e8, 2);
+        double actual3 = Task4.getPiMonteCarloParallel((long) -1e8, -1);
 
-        assertEquals(-1, Task4.getPiMonteCarloParallel((long) -1e8, -1));
+        // Assert
+        assertEquals(Math.PI, actual1, 1e-3);
+        assertEquals(Math.PI, actual2, 1e-3);
+        assertEquals(-1, actual3);
     }
 }

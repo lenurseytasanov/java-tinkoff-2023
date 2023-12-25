@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.stream.IntStream;
 
 public final class Task2 {
+
     private Task2() { }
 
     public static BigInteger getFactorialParallel(int arg) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 public class ParallelSearchDatabase implements PersonDatabase {
+
     private final List<Person> data = new ArrayList<>();
 
     @Override
